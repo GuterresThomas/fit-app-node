@@ -32,7 +32,7 @@ router.get('/alunos/personal/:personal_id', async (req, res) => {
 
   try {
     const result = await db.query(query);
-    const alunosTreinos = [];
+    const alunosTreinosMap = new Map(); // Usaremos um mapa para agrupar os treinos sob cada aluno
 
     for (const row of result) {
       const alunoTreino = {
@@ -42,14 +42,23 @@ router.get('/alunos/personal/:personal_id', async (req, res) => {
         email_aluno: row.email_aluno,
         telefone_aluno: row.telefone_aluno,
         cpf_aluno: row.cpf_aluno,
-        treino_id: row.treino_id,
-        data_do_treino: row.data_do_treino,
-        descricao_do_treino: row.descricao_do_treino,
         nome_personal: row.nome_personal,
       };
 
-      alunosTreinos.push(alunoTreino);
+      if (!alunosTreinosMap.has(row.aluno_id)) {
+        alunosTreinosMap.set(row.aluno_id, { ...alunoTreino, treinos: [] });
+      }
+
+      if (row.treino_id) {
+        alunosTreinosMap.get(row.aluno_id).treinos.push({
+          treino_id: row.treino_id,
+          data_do_treino: row.data_do_treino,
+          descricao_do_treino: row.descricao_do_treino,
+        });
+      }
     }
+
+    const alunosTreinos = Array.from(alunosTreinosMap.values());
 
     res.json(alunosTreinos);
   } catch (error) {
