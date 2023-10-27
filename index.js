@@ -33,6 +33,6 @@ app.use('/', addUserRouter);
 
 // Defina outras rotas semelhantes para criar usuário, treino, aluno, etc.
 
-app.listen(process.env.PORT, () => {
+app.listen(3030, () => {
   console.log('Servidor iniciado na porta 3030');
 });

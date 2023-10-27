@@ -1,13 +1,12 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
-  })
-
-  pool.connect((err) => {
-    if(err) throw err
-    console.log("conectado com sucesso!")
-  })
+  user: 'postgres',
+  host: 'localhost',
+  database: 'postgres',
+  password: '1234',
+  port: 5432, // Port do PostgreSQL
+});
 
 // Função para realizar consultas no banco de dados
 async function query(text, values) {
