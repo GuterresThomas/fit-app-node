@@ -7,8 +7,8 @@ const addAlunoRouter = require('./routes/addAluno'); // Importe o módulo addAlu
 const addTreinoRouter = require('./routes/addTreino');
 const getAlunosTreinosRouter = require('./routes/getAlunosTreinos');
 const deleteAlunoRouter = require('./routes/deleteAluno');
-const frequenciaRouter = require('./routes/frequencia')
-
+const frequenciaRouter = require('./routes/frequencia');
+const addUserRouter = require('./routes/addUser');
 
 const app = express();
 app.use(bodyParser.json());
@@ -29,6 +29,7 @@ app.use('/', addTreinoRouter);
 app.use('/', getAlunosTreinosRouter);
 app.use('/', deleteAlunoRouter);
 app.use('/', frequenciaRouter);
+app.use('/', addUserRouter);
 
 // Defina outras rotas semelhantes para criar usuário, treino, aluno, etc.
 
