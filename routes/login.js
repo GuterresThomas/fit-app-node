@@ -1,17 +1,36 @@
 // login.js
 const express = require('express');
 const db = require('../database/postgres'); // Importa o módulo postgres.js
-
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
   const { email, senha } = req.body;
+  console.log('senha vindo do body', senha);
   try {
-    const result = await db.query('SELECT user_id, nome FROM users WHERE email = $1 AND senha = $2', [email, senha]);
+    const result = await db.query('SELECT user_id, nome, senha AS senhahash FROM users WHERE email = $1', [email]);
+    console.log('coluna que está o pssoivel erro', result);
 
     if (result.length > 0) {
-      const { user_id, nome } = result[0];
-      res.json({ user_id, nome });
+      const { user_id, nome, senhahash } = result[0];
+      console.log('senhahash: ', senhahash);
+      
+      
+      bcrypt.compare(senha, senhahash, (err, passwordMatch) => {
+        if (err) {
+          console.error('Erro na comparação: ', err);
+          res.status(500).json({ error: 'Erro durante o login' });
+          console.log('senha e senhahash lado a lado: ', senha, senhahash);
+        } else {
+          console.log('passwordMatch:', passwordMatch);
+          if (passwordMatch) {
+            res.json({ user_id, nome });
+            console.log(user_id, nome);
+          } else {
+            res.status(401).json({ error: 'Credenciais inválidas' });
+          }
+        }
+      });
     } else {
       res.status(401).json({ error: 'Credenciais inválidas' });
     }
