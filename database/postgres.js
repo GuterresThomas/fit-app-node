@@ -4,7 +4,7 @@ const pool = new Pool({
     connectionString: process.env.POSTGRES_URL + "?sslmode=require",
   })
 
-  poon.connect((err) => {
+  pool.connect((err) => {
     if(err) throw err
     console.log("conectado com sucesso!")
   })
