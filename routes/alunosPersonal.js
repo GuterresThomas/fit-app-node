@@ -14,7 +14,7 @@ router.get('/alunos/personal/:personal_id', async (req, res) => {
         alunos.email AS email_aluno,
         alunos.telefone AS telefone_aluno,
         alunos.cpf AS cpf_aluno,
-        alunos.observacoes_objetivos
+        alunos.observacoes_objetivos,
         treinos.treino_id,
         treinos.data_do_treino,
         treinos.descricao_do_treino,
