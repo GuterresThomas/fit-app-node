@@ -24,7 +24,7 @@ router.post('/aluno_create', async (req, res) => {
       // O personal trainer existe, então insira o aluno associado
       const insertQuery = {
         text:
-          'INSERT INTO alunos (aluno_id, personal_id, nome, email, telefone, cpf) VALUES ($1, $2, $3, $4, $5, $6)',
+          'INSERT INTO alunos (aluno_id, personal_id, nome, email, telefone, cpf, observacoes_objetivos) VALUES ($1, $2, $3, $4, $5, $6, $7)',
         values: [
           aluno.aluno_id,
           aluno.personal_id,
