@@ -14,6 +14,7 @@ router.get('/alunos/personal/:personal_id', async (req, res) => {
         alunos.email AS email_aluno,
         alunos.telefone AS telefone_aluno,
         alunos.cpf AS cpf_aluno,
+        alunos.observacoes_objetivos
         treinos.treino_id,
         treinos.data_do_treino,
         treinos.descricao_do_treino,
@@ -42,6 +43,7 @@ router.get('/alunos/personal/:personal_id', async (req, res) => {
         email_aluno: row.email_aluno,
         telefone_aluno: row.telefone_aluno,
         cpf_aluno: row.cpf_aluno,
+        observacoes_objetivos: row.observacoes_objetivos,
         nome_personal: row.nome_personal,
       };
 

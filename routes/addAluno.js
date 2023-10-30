@@ -32,6 +32,7 @@ router.post('/aluno_create', async (req, res) => {
           aluno.email,
           aluno.telefone,
           aluno.cpf,
+          aluno.observacoes_objetivos,
         ],
       };
 
